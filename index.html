@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohamed Mahmoud — Cybersecurity Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --border: #222222;
+    --accent: #00ff88;
+    --accent2: #00aaff;
+    --text: #e8e8e8;
+    --muted: #888888;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* SCANLINE EFFECT */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 32px;
+  }
+
+  /* HEADER */
+  .header {
+    border-left: 3px solid var(--accent);
+    padding-left: 24px;
+    margin-bottom: 48px;
+    animation: fadeIn 0.6s ease;
+  }
+
+  .header-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .name {
+    font-family: var(--mono);
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .title {
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+  }
+
+  .title span {
+    color: var(--accent2);
+    font-weight: 500;
+  }
+
+  .contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .contacts a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .contacts a:hover { color: var(--accent); }
+
+  .contacts .badge {
+    background: rgba(0,255,136,0.1);
+    border: 1px solid rgba(0,255,136,0.3);
+    color: var(--accent);
+    padding: 2px 10px;
+    border-radius: 2px;
+  }
+
+  /* SECTIONS */
+  .section {
+    margin-bottom: 40px;
+    animation: fadeIn 0.6s ease both;
+  }
+
+  .section:nth-child(2) { animation-delay: 0.1s; }
+  .section:nth-child(3) { animation-delay: 0.15s; }
+  .section:nth-child(4) { animation-delay: 0.2s; }
+  .section:nth-child(5) { animation-delay: 0.25s; }
+  .section:nth-child(6) { animation-delay: 0.3s; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* SKILL GROUPS */
+  .skill-group {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0;
+    margin-bottom: 12px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--border);
+    transition: border-left-color 0.2s;
+  }
+
+  .skill-group:hover { border-left-color: var(--accent); }
+
+  .skill-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent2);
+    font-weight: 500;
+    padding-right: 16px;
+    padding-top: 1px;
+  }
+
+  .skill-items {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .skill-items .tag {
+    display: inline-block;
+    margin: 2px 3px 2px 0;
+    padding: 1px 7px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: #cccccc;
+  }
+
+  /* ENTRIES */
+  .entry {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .entry:last-child { border-bottom: none; }
+
+  .entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+
+  .entry-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #ffffff;
+  }
+
+  .entry-org {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent2);
+    margin-top: 2px;
+  }
+
+  .entry-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    white-space: nowrap;
+    margin-top: 3px;
+  }
+
+  .entry-bullets {
+    list-style: none;
+    margin-top: 8px;
+  }
+
+  .entry-bullets li {
+    position: relative;
+    padding-left: 16px;
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 4px;
+    line-height: 1.6;
+  }
+
+  .entry-bullets li::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 11px;
+    top: 2px;
+  }
+
+  /* CERT LINES */
+  .cert-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    margin-bottom: 8px;
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+
+  .cert-name { color: #ffffff; font-weight: 500; }
+
+  .cert-status {
+    font-size: 11px;
+    color: var(--accent);
+    background: rgba(0,255,136,0.08);
+    border: 1px solid rgba(0,255,136,0.2);
+    padding: 2px 10px;
+    border-radius: 2px;
+  }
+
+  /* ACHIEVEMENTS */
+  .achievement {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .achievement:last-child { border-bottom: none; }
+
+  .achievement::before {
+    content: '[+]';
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+
+  /* SUMMARY */
+  .summary-text {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.8;
+    border-left: 2px solid var(--border);
+    padding-left: 16px;
+  }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .blink {
+    display: inline-block;
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .skill-group { grid-template-columns: 1fr; }
+    .skill-label { margin-bottom: 6px; }
+    .cert-line { flex-direction: column; gap: 6px; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-tag">// cybersecurity_engineer.profile</div>
+    <div class="name">Mohamed Mahmoud</div>
+    <div class="title">
+      <span>SOC Analyst</span> &nbsp;/&nbsp;
+      <span>Red Team</span> &nbsp;/&nbsp;
+      <span>Blue Team</span> &nbsp;/&nbsp; Purple Team
+    </div>
+    <div class="contacts">
+      <a href="tel:+201115373709">+20 1115373709</a>
+      <a href="mailto:pparamda@gmail.com">pparamda@gmail.com</a>
+      <a href="https://linkedin.com/in/mohamed-selim-45702333a" target="_blank">LinkedIn</a>
+      <span class="badge">TryHackMe: Top 15%</span>
+      <span>Cairo, Egypt</span>
+    </div>
+  </header>
+
+  <!-- SUMMARY -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label">Summary</span>
+      <div class="section-line"></div>
+    </div>
+    <p class="summary-text">
+      Passionate Cybersecurity Engineer with hands-on experience across offensive (Red Team) and defensive (Blue Team) disciplines. Skilled in SOC operations, threat detection, incident response, penetration testing, and network security. Completed DEPI SOC Track, NTI Information Security, and Sprints training. Ranked Top 15% on TryHackMe. Designed and deployed a Mini SOC Lab for purple team research. Currently preparing for CCNA, Network+, and Security+ exams.
+    </p>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label">Technical Skills</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-label">Red Team</div>
+      <div class="skill-items">
+        <span class="tag">Penetration Testing</span><span class="tag">OWASP Top 10</span><span class="tag">Burp Suite</span><span class="tag">Nmap</span><span class="tag">Metasploit</span><span class="tag">OSINT</span><span class="tag">Vuln Assessment</span><span class="tag">Ethical Hacking</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-label">Blue Team</div>
+      <div class="skill-items">
+        <span class="tag">SOC Operations</span><span class="tag">SIEM</span><span class="tag">Log Analysis</span><span class="tag">Threat Detection</span><span class="tag">Incident Response</span><span class="tag">Threat Hunting</span><span class="tag">IDS/IPS</span><span class="tag">Digital Forensics</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-label">Purple Team</div>
+      <div class="skill-items">
+        <span class="tag">Mini SOC Lab</span><span class="tag">Attack Simulation</span><span class="tag">Detection Tuning</span><span class="tag">Security Playbooks</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-label">Networking</div>
+      <div class="skill-items">
+        <span class="tag">TCP/IP</span><span class="tag">DNS</span><span class="tag">HTTP/S</span><span class="tag">Routing & Switching</span><span class="tag">Firewalls</span><span class="tag">Wireshark</span><span class="tag">CCNA (Ready)</span><span class="tag">Network+</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-label">OS & Tools</div>
+      <div class="skill-items">
+        <span class="tag">Linux (Ubuntu)</span><span class="tag">Windows</span><span class="tag">VMs</span><span class="tag">MySQL</span><span class="tag">Git</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-label">Programming</div>
+      <div class="skill-items">
+        <span class="tag">Python</span><span class="tag">SQL</span><span class="tag">C++</span><span class="tag">Bash</span><span class="tag">HTML/CSS/JS</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS IN PROGRESS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label">Certifications In Progress</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="cert-line">
+      <span class="cert-name">CompTIA Security+</span>
+      <span class="cert-status">Exam Scheduled</span>
+    </div>
+    <div class="cert-line">
+      <span class="cert-name">CompTIA Network+</span>
+      <span class="cert-status">Exam Scheduled</span>
+    </div>
+    <div class="cert-line">
+      <span class="cert-name">Cisco CCNA</span>
+      <span class="cert-status">Exam Scheduled</span>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label">Education</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="entry">
+      <div class="entry-header">
+        <div>
+          <div class="entry-title">B.Sc. Computer and Information Sciences</div>
+          <div class="entry-org">Ain Shams University — Major: Computer Systems (CSYS)</div>
+        </div>
+        <div class="entry-date">2023 – 2027</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAINING -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label">Training & Internships</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div>
+          <div class="entry-title">SOC Analyst Training</div>
+          <div class="entry-org">Digital Egypt Pioneers Initiative (DEPI)</div>
+        </div>
+        <div class="entry-date">2026 · 4 Months</div>
+      </div>
+      <ul class="entry-bullets">
+        <li>Intensive SOC operations training covering threat detection, SIEM tools, and incident response</li>
+        <li>Developed hands-on skills in log analysis, security event management, and alert triage</li>
+        <li>Simulated real-world SOC workflows including escalation procedures and playbook execution</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div>
+          <div class="entry-title">Information Security Training</div>
+          <div class="entry-org">National Telecommunications Institute (NTI)</div>
+        </div>
+      </div>
+      <ul class="entry-bullets">
+        <li>Comprehensive program covering network security, cryptography, and risk management</li>
+        <li>Practical exposure to security assessment methodologies and defense strategies</li>
+        <li>Foundational knowledge in security policies, compliance frameworks, and secure architecture</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div>
+          <div class="entry-title">Cybersecurity Training</div>
+          <div class="entry-org">Sprints Platform</div>
+        </div>
+        <div class="entry-date">Summer 2025</div>
+      </div>
+      <ul class="entry-bullets">
+        <li>Full cybersecurity course covering offensive and defensive fundamentals</li>
+        <li>Hands-on practice with vulnerability scanning, exploitation basics, and hardening techniques</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div>
+          <div class="entry-title">Artificial Intelligence Internship</div>
+          <div class="entry-org">Huawei Technologies</div>
+        </div>
+        <div class="entry-date">Aug 2024 · 1 Month</div>
+      </div>
+      <ul class="entry-bullets">
+        <li>Intensive training in AI and Machine Learning fundamentals</li>
+        <li>Explored AI-driven approaches relevant to threat detection and anomaly analysis</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div>
+          <div class="entry-title">Frontend Web Development</div>
+          <div class="entry-org">Information Technology Institute (ITI)</div>
+        </div>
+      </div>
+      <ul class="entry-bullets">
+        <li>Training covering HTML5, CSS3, JavaScript, and responsive design principles</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label">Projects</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="entry">
+      <div class="entry-header">
+        <div>
+          <div class="entry-title">Mini SOC Lab — Purple Team Environment</div>
+          <div class="entry-org">Personal Project</div>
+        </div>
+        <div class="entry-date">2025</div>
+      </div>
+      <ul class="entry-bullets">
+        <li>Designed and deployed a fully functional Mini SOC lab simulating a real-world purple team setup</li>
+        <li>Configured log collection, SIEM ingestion, and alert rules for detecting common attack patterns</li>
+        <li>Executed Red Team attack simulations and tuned Blue Team detection rules accordingly</li>
+        <li>Documented findings and built detection playbooks bridging offensive and defensive workflows</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label">Achievements</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="achievement">Ranked in the Top 15% of all users on TryHackMe — consistent CTF performance across offensive and defensive challenges</div>
+    <div class="achievement">Completed 3 major cybersecurity training programs (DEPI, NTI, Sprints) alongside full-time university studies</div>
+    <div class="achievement">Designed and deployed a fully operational Mini SOC Lab used for purple team research and practice</div>
+  </section>
+
+  <!-- EXTRACURRICULAR -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label">Extracurricular</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="entry">
+      <div class="entry-title">CYPRES — Cybersecurity Student Community</div>
+      <div class="entry-org">Ain Shams University</div>
+      <ul class="entry-bullets">
+        <li>Hands-on participation in web application pentesting and vulnerability workshops</li>
+        <li>Explored OWASP Top 10 and practiced responsible disclosure methodologies</li>
+      </ul>
+    </div>
+    <div class="entry">
+      <div class="entry-title">Star Union — Student Organization</div>
+      <div class="entry-org">Cairo University</div>
+      <ul class="entry-bullets"><li>Visual content creation, digital marketing, and communication skills</li></ul>
+    </div>
+    <div class="entry">
+      <div class="entry-title">AIBE — Student Organization</div>
+      <div class="entry-org">Ain Shams University</div>
+      <ul class="entry-bullets"><li>Business development and market analysis through real-world projects</li></ul>
+    </div>
+  </section>
+
+  <!-- LANGUAGES -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label">Languages</span>
+      <div class="section-line"></div>
+    </div>
+    <div style="display:flex; gap: 32px; font-family: var(--mono); font-size: 13px;">
+      <div><span style="color:#fff; font-weight:600;">Arabic</span> <span style="color:var(--muted);">— Native</span></div>
+      <div><span style="color:#fff; font-weight:600;">English</span> <span style="color:var(--muted);">— Intermediate (B2)</span></div>
+    </div>
+  </section>
+
+  <div class="footer">
+    <span>Mohamed Mahmoud — Cybersecurity Engineer</span>
+    <span>Cairo, Egypt<span class="blink">_</span></span>
+  </div>
+
+</div>
+</body>
+</html>
